@@ -1,4 +1,4 @@
-const App = {
+const app = Vue.createApp({
   data() {
     return {
       age: 35,
@@ -15,6 +15,6 @@ const App = {
       return Math.random()
     },
   },
-}
+})
 
-Vue.createApp(App).mount("#assignment")
+app.mount("#assignment")
