@@ -19,7 +19,7 @@
     <section id="events">
       <h2>Events in Action</h2>
       <button v-on:click="add(5)">Add 5</button>
-      <button v-on:click="remove(10)">Remove 10</button>
+      <button v-on:click.right="remove(10)">Remove 10</button>
       <p>Result: {{ counter }}</p>
       <input type="text" v-on:input="setName($event, 'Palvair')">
       <p>Your Name: {{ name }}</p>
