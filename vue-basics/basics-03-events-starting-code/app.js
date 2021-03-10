@@ -15,8 +15,7 @@ const app = Vue.createApp({
     setName(event, name) {
       this.name = event.target.value
     },
-    submitForm(event) {
-      event.preventDefault()
+    submitForm() {
       console.log("submitted")
     },
   },
