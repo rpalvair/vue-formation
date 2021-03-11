@@ -4,6 +4,7 @@ const app = Vue.createApp({
       counter: 10,
       name: "",
       fullname: "",
+      lastName: "",
     }
   },
   computed: {
@@ -20,7 +21,14 @@ const app = Vue.createApp({
       if (value === "") {
         this.fullname = ""
       } else {
-        this.fullname = value + " " + "Palvair"
+        this.fullname = value + " " + this.lastName
+      }
+    },
+    lastName() {
+      if (value === "") {
+        this.fullname = ""
+      } else {
+        this.fullname = this.name + " " + value
       }
     },
   },

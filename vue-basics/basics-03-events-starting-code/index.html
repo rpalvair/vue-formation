@@ -23,6 +23,7 @@
       <p v-once>Starting Counter : {{ counter }}</p>
       <p>Result: {{ counter }}</p>
       <input type="text" v-model="name">
+      <input type="text" v-model="lastName">
       <p>Your Name: {{ fullname }}</p>
       <button v-on:click="resetInput">Reset Input</button>
       <form style="margin-top:20px" v-on:submit.prevent="submitForm">
