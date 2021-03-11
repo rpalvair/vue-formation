@@ -24,10 +24,11 @@ const app = Vue.createApp({
   },
   watch: {
     result() {
-      console.log("result change")
+      console.log("watcher...")
       const that = this
       setTimeout(function () {
         that.number = 0
+        console.log("reset number")
       }, 5000)
     },
   },
