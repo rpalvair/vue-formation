@@ -15,9 +15,9 @@ const app = Vue.createApp({
     // }
   },
   watch: {
-    name() {
+    name(value) {
       console.log("name changed")
-      this.fullname = this.name + " " + "Palvair"
+      this.fullname = value + " " + "Palvair"
     }
   },
   methods: {
