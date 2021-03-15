@@ -1,4 +1,28 @@
 const app = Vue.createApp({
+  beforeCreate() {
+    console.log("before create")
+  },
+  created() {
+    console.log("created")
+  },
+  beforeUpdate() {
+    console.log("before update")
+  },
+  updated() {
+    console.log("updated")
+  },
+  beforeMount() {
+    console.log("before mount")
+  },
+  mounted() {
+    console.log("mounted")
+  },
+  beforeUnmount() {
+    console.log("before unmount")
+  },
+  unmounted() {
+    console.log("unmounted")
+  },
   data() {
     return {
       currentUserInput: "",
@@ -17,6 +41,11 @@ const app = Vue.createApp({
 })
 
 app.mount("#app")
+
+setTimeout(function() {
+  app.unmount()
+}, 3000)
+
 
 const app2 = Vue.createApp({
   template: `
