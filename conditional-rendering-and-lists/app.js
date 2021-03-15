@@ -1,6 +1,6 @@
 const app = Vue.createApp({
   data() {
-    return { goals: ["Finish the course!"], enteredGoalValue: null }
+    return { goals: [], enteredGoalValue: null }
   },
   methods: {
     addGoal() {
