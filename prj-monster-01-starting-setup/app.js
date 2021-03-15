@@ -7,6 +7,8 @@ const app = Vue.createApp({
     return {
       playerHealth: 100,
       monsterHealth: 100,
+      roundsCount: 0,
+      specialAttackAvailable: false,
     }
   },
   methods: {
@@ -14,10 +16,17 @@ const app = Vue.createApp({
       const attackValue = getRandomValue(5, 12)
       this.monsterHealth -= attackValue
       this.attackPlayer()
+      this.roundsCount++
     },
     attackPlayer() {
       const attackValue = getRandomValue(8, 15)
       this.playerHealth -= attackValue
+    },
+    specialAttackMonster() {
+      const attackValue = getRandomValue(10, 25)
+      this.monsterHealth -= attackValue
+      this.attackPlayer()
+      this.specialAttackAvailable = false
     },
   },
   computed: {
@@ -27,10 +36,17 @@ const app = Vue.createApp({
       }
     },
     getMonsterHealthBarStyle() {
-        return {
-          width: this.monsterHealth + "%",
-        }
-      },
+      return {
+        width: this.monsterHealth + "%",
+      }
+    },
+    disableSpecialAttack() {
+      const isModulo = this.roundsCount !== 0 && this.roundsCount % 3 === 0
+      if (isModulo) {
+        this.specialAttackAvailable = true
+      }
+      return !this.specialAttackAvailable && !isModulo
+    },
   },
 })
 
