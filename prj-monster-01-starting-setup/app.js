@@ -2,6 +2,14 @@ function getRandomValue(min, max) {
   return Math.floor(Math.random() * (max - min)) + min
 }
 
+function getValueForAttack(object, value) {
+  if (object - value <= 0) {
+    return 0
+  } else {
+    return object - value
+  }
+}
+
 const app = Vue.createApp({
   data() {
     return {
@@ -14,17 +22,17 @@ const app = Vue.createApp({
   methods: {
     attackMonster() {
       const attackValue = getRandomValue(5, 12)
-      this.monsterHealth -= attackValue
+      this.monsterHealth = getValueForAttack(this.monsterHealth, attackValue)
       this.attackPlayer()
       this.roundsCount++
     },
     attackPlayer() {
       const attackValue = getRandomValue(8, 15)
-      this.playerHealth -= attackValue
+      this.playerHealth = getValueForAttack(this.playerHealth, attackValue)
     },
     specialAttackMonster() {
       const attackValue = getRandomValue(10, 25)
-      this.monsterHealth -= attackValue
+      this.monsterHealth = getValueForAttack(this.monsterHealth, attackValue)
       this.attackPlayer()
       this.roundsCount++
       this.specialAttackAvailable = false
