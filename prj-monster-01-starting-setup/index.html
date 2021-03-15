@@ -17,17 +17,21 @@
       <h1>Monster Slayer</h1>
     </header>
     <div id="game">
-      <section id="monster" class="container">
+      <section v-if="!gameOver" id="monster" class="container">
         <h2>Monster Health</h2>
         <div class="healthbar">
           <div class="healthbar__value" :style="getMonsterHealthBarStyle"></div>
         </div>
       </section>
-      <section id="player" class="container">
+      <section v-if="!gameOver" id="player" class="container">
         <h2>Your Health</h2>
         <div class="healthbar">
           <div class="healthbar__value" :style="getPlayerHealthBarStyle"></div>
         </div>
+      </section>
+      <section v-else class="container">
+        <h2>Game Over!</h2>
+        <h2>{{ endMessage }}</h2>
       </section>
       <section id="controls">
         <button @click="attackMonster">ATTACK</button>

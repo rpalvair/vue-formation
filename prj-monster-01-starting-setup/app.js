@@ -17,6 +17,9 @@ const app = Vue.createApp({
       monsterHealth: 100,
       roundsCount: 0,
       specialAttackAvailable: false,
+      win: false,
+      gameOver: false,
+      draw: false,
     }
   },
   methods: {
@@ -65,6 +68,38 @@ const app = Vue.createApp({
         this.specialAttackAvailable = true
       }
       return !this.specialAttackAvailable && !isModulo
+    },
+    endMessage() {
+      if (this.gameOver) {
+        if (this.win) {
+          return "You won!"
+        } else if (this.draw) {
+          return "It's a draw"
+        } else {
+          return "You lost!"
+        }
+      }
+    },
+  },
+  watch: {
+    playerHealth(value) {
+      if (value <= 0 && this.monsterHealth <= 0) {
+        this.gameOver = true
+        this.draw = true
+      } else if (value <= 0) {
+        console.log("Looser!")
+        this.gameOver = true
+      }
+    },
+    monsterHealth(value) {
+      if (value <= 0 && this.playerHealth <= 0) {
+        this.gameOver = true
+        this.draw = true
+      } else if (value <= 0) {
+        console.log("Winner!")
+        this.win = true
+        this.gameOver = true
+      }
     },
   },
 })
