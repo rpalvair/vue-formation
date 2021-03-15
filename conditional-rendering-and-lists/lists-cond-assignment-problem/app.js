@@ -17,7 +17,7 @@ const app = Vue.createApp({
   computed: {
     getMessage() {
           if(this.show) {
-              return "Hide"
+              return "Hide List"
           } else {
             return "Show List" 
           }
