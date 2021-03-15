@@ -10,17 +10,21 @@ function getValueForAttack(object, value) {
   }
 }
 
+function initialState() {
+  return {
+    playerHealth: 100,
+    monsterHealth: 100,
+    roundsCount: 0,
+    specialAttackAvailable: false,
+    win: false,
+    gameOver: false,
+    draw: false,
+  }
+}
+
 const app = Vue.createApp({
   data() {
-    return {
-      playerHealth: 100,
-      monsterHealth: 100,
-      roundsCount: 0,
-      specialAttackAvailable: false,
-      win: false,
-      gameOver: false,
-      draw: false,
-    }
+    return initialState()
   },
   methods: {
     attackMonster() {
@@ -49,6 +53,9 @@ const app = Vue.createApp({
       }
       this.roundsCount++
       this.attackPlayer()
+    },
+    reload() {
+      Object.assign(this.$data, initialState())
     },
   },
   computed: {

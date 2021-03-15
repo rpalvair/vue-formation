@@ -32,6 +32,7 @@
       <section v-else class="container">
         <h2>Game Over!</h2>
         <h2>{{ endMessage }}</h2>
+        <button @click="reload">Reload</button>
       </section>
       <section id="controls">
         <button @click="attackMonster">ATTACK</button>
