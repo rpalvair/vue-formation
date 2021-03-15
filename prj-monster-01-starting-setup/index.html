@@ -31,7 +31,9 @@
       </section>
       <section v-if="!gameOver" id="controls">
         <button @click="attackMonster">ATTACK</button>
-        <button @click="specialAttackMonster" :disabled="disableSpecialAttack">SPECIAL ATTACK</button>
+        <button @click="specialAttackMonster" :disabled="disableSpecialAttack">
+          SPECIAL ATTACK
+        </button>
         <button @click="healPlayer">HEAL</button>
         <button @click="surrender">SURRENDER</button>
       </section>
@@ -42,7 +44,9 @@
       </section>
       <section id="log" class="container">
         <h2>Battle Log</h2>
-        <ul></ul>
+        <ul>
+          <li v-for="log in logs">{{log}}</li>
+        </ul>
       </section>
     </div>
   </body>

@@ -19,6 +19,7 @@ function initialState() {
     win: false,
     gameOver: false,
     draw: false,
+    logs: [],
   }
 }
 
@@ -30,16 +31,19 @@ const app = Vue.createApp({
     attackMonster() {
       const attackValue = getRandomValue(5, 12)
       this.monsterHealth = getValueForAttack(this.monsterHealth, attackValue)
+      this.addLog(`Attack on monster with ${attackValue} % of damages`)
       this.attackPlayer()
       this.roundsCount++
     },
     attackPlayer() {
       const attackValue = getRandomValue(8, 15)
       this.playerHealth = getValueForAttack(this.playerHealth, attackValue)
+      this.addLog(`Monster causes ${attackValue} % of damages to the player`)
     },
     specialAttackMonster() {
       const attackValue = getRandomValue(10, 25)
       this.monsterHealth = getValueForAttack(this.monsterHealth, attackValue)
+      this.addLog(`Special attack on monster with ${attackValue} % of damages`)
       this.attackPlayer()
       this.roundsCount++
       this.specialAttackAvailable = false
@@ -52,14 +56,19 @@ const app = Vue.createApp({
         this.playerHealth += healValue
       }
       this.roundsCount++
+      this.addLog(`Player is healing ${healValue} %`)
       this.attackPlayer()
     },
     reload() {
       Object.assign(this.$data, initialState())
     },
     surrender() {
-        this.gameOver = true
-    }
+      this.addLog("Player surrender...")
+      this.gameOver = true
+    },
+    addLog(message) {
+      this.logs.push(message)
+    },
   },
   computed: {
     getPlayerHealthBarStyle() {
