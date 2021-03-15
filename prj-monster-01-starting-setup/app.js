@@ -31,19 +31,19 @@ const app = Vue.createApp({
     attackMonster() {
       const attackValue = getRandomValue(5, 12)
       this.monsterHealth = getValueForAttack(this.monsterHealth, attackValue)
-      this.addLog(`Attack on monster with ${attackValue} % of damages`)
+      this.addLog("player", "attack", attackValue)
       this.attackPlayer()
       this.roundsCount++
     },
     attackPlayer() {
       const attackValue = getRandomValue(8, 15)
       this.playerHealth = getValueForAttack(this.playerHealth, attackValue)
-      this.addLog(`Monster causes ${attackValue} % of damages to the player`)
+      this.addLog("monster", "attack", attackValue)
     },
     specialAttackMonster() {
       const attackValue = getRandomValue(10, 25)
       this.monsterHealth = getValueForAttack(this.monsterHealth, attackValue)
-      this.addLog(`Special attack on monster with ${attackValue} % of damages`)
+      this.addLog("player", "special attack", attackValue)
       this.attackPlayer()
       this.roundsCount++
       this.specialAttackAvailable = false
@@ -56,17 +56,22 @@ const app = Vue.createApp({
         this.playerHealth += healValue
       }
       this.roundsCount++
-      this.addLog(`Player is healing ${healValue} %`)
+      this.addLog("player", "heal", healValue)
       this.attackPlayer()
     },
     reload() {
       Object.assign(this.$data, initialState())
     },
     surrender() {
-      this.addLog("Player surrender...")
+      this.addLog("player", "surrender")
       this.gameOver = true
     },
-    addLog(message) {
+    addLog(from, type, value) {
+      message = {
+        from,
+        type,
+        value,
+      }
       this.logs.push(message)
     },
   },

@@ -45,7 +45,16 @@
       <section id="log" class="container">
         <h2>Battle Log</h2>
         <ul>
-          <li v-for="log in logs">{{log}}</li>
+          <li v-for="log in logs">
+            <span :class="{'log--player': log.from === 'player','log--monster': log.from === 'monster'}">{{ log.from ==='player' ? "Player":"Monster" }}</span>
+            <span v-if="log.type === 'heal'"> heals himself for <span class="log--heal">{{ log.value }}</span></span>
+            <span v-else-if="log.type === 'surrender'"> surrender...</span>
+            <span v-else>
+              attacks and deals
+              <span class="log--damage">{{ log.value }} % of damages
+              </span>
+              </span>
+          </li>
         </ul>
       </section>
     </div>
