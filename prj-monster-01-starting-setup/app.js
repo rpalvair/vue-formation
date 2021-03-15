@@ -57,6 +57,9 @@ const app = Vue.createApp({
     reload() {
       Object.assign(this.$data, initialState())
     },
+    surrender() {
+        this.gameOver = true
+    }
   },
   computed: {
     getPlayerHealthBarStyle() {
