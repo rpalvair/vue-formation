@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       detailsAreVisible: false,
-      friendIsFavorite: this.isFavorite === "1" ? true : false,
+      friendIsFavorite: this.isFavorite,
     }
   },
   methods: {
