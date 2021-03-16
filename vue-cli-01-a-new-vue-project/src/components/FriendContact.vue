@@ -1,7 +1,7 @@
 <template>
   <li>
     <h2>{{ name }} {{ isFavorite === "1" ? "(Favorite)" : "" }}</h2>
-    <button @click="toggleFavorite">Toogle favorite</button>
+    <!-- <button @click="toggleFavorite">Toogle favorite</button> -->
     <button @click="toggleDetails">
       {{ detailsAreVisible ? "Hide Details" : "Show Details" }}
     </button>
