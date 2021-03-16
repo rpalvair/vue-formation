@@ -10,7 +10,8 @@
         :name="friend.name"
         :phone-number="friend.phone"
         :email-address="friend.email"
-        :is-favorite="true"
+        :is-favorite="friend.isFavorite"
+        @toggleFavorite="toggleFavorite"
       ></friend-contact>
     </ul>
   </section>
@@ -28,15 +29,30 @@ export default {
           name: "Manuel Lorenz",
           phone: "01234 5678 991",
           email: "manuel@localhost.com",
+          isFavorite: false,
         },
         {
           id: "julie",
           name: "Julie Jones",
           phone: "09876 543 221",
           email: "julie@localhost.com",
+          isFavorite: false,
         },
       ],
     }
+  },
+  methods: {
+    toggleFavorite(name, value) {
+      const list = { ...this.friends }
+      const result = Object.values(list).map((obj) => {
+        if (obj.name === name) {
+          obj.isFavorite = value
+        }
+        return obj
+      })
+      this.friends = result
+      console.log("friends", this.friends)
+    },
   },
 }
 </script>
