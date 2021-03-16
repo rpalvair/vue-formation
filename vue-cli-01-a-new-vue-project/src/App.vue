@@ -7,6 +7,7 @@
       <friend-contact
         v-for="friend in friends"
         :key="friend.name"
+        :id="friend.id"
         :name="friend.name"
         :phone-number="friend.phone"
         :email-address="friend.email"
@@ -42,11 +43,11 @@ export default {
     }
   },
   methods: {
-    toggleFavorite(name, value) {
+    toggleFavorite(id) {
       const list = { ...this.friends }
       const result = Object.values(list).map((obj) => {
-        if (obj.name === name) {
-          obj.isFavorite = value
+        if (obj.id === id) {
+          obj.isFavorite = !obj.isFavorite
         }
         return obj
       })

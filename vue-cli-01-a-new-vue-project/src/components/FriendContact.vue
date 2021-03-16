@@ -17,6 +17,7 @@ export default {
   //   props: ["name", "phoneNumber", "emailAddress", "isFavorite"],
   props: {
     name: { type: String, required: true },
+    id: { type: String, required: true },
     phoneNumber: { type: String, required: true },
     emailAddress: { type: String, required: true },
     isFavorite: {
@@ -39,7 +40,7 @@ export default {
       this.detailsAreVisible = !this.detailsAreVisible
     },
     toggleFavorite() {
-      this.$emit("toggleFavorite", this.name, !this.isFavorite)
+      this.$emit("toggleFavorite", this.id)
     },
   },
 }
