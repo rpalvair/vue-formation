@@ -25,7 +25,6 @@ export default {
   emits: ["newFriend"],
   data() {
     return {
-      id: "",
       name: "",
       phone: "",
       email: "",
