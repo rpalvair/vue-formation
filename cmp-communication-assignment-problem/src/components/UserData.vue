@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @click.prevent>
     <div>
       <label>Name :</label>
       <input type="text" v-model="enteredName" />
@@ -8,7 +8,6 @@
       <label>Age :</label>
       <input type="text" v-model="enteredAge" />
     </div>
-    <button @click.prevent="update">Update</button>
   </form>
 </template>
 
@@ -21,15 +20,21 @@ export default {
       enteredAge: this.age,
     }
   },
-  methods: {
-    update() {
-      const user = {
-        name: this.enteredName,
-        age: this.enteredAge,
-      }
-      console.log("user", user)
-      this.$emit("update", user)
+  watch: {
+    enteredName() {
+      emitUpdate(this)
+    },
+    enteredAge() {
+      emitUpdate(this)
     },
   },
+}
+function emitUpdate(context) {
+  const user = {
+    name: context.enteredName,
+    age: context.enteredAge,
+  }
+  console.log("update user", user)
+  context.$emit("update", user)
 }
 </script>
