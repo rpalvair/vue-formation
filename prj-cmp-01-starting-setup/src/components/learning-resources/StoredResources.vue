@@ -2,7 +2,7 @@
   <ul>
     <learning-resource
       :key="resource.id"
-      v-for="resource in storedResources"
+      v-for="resource in resources"
       v-bind="resource"
     ></learning-resource>
   </ul>
@@ -14,7 +14,7 @@ export default {
   components: {
     LearningResource
   },
-  props: ['storedResources']
+  inject: ['resources']
 };
 </script>
 
