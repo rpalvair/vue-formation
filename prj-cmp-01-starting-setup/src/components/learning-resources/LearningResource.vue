@@ -1,22 +1,26 @@
 <template>
   <div>
     <li>
-      <div>
-        <header>
-          <h3>{{ title }}</h3>
-          <button>Delete</button>
-        </header>
-      </div>
-      <p>
-        {{ description }}
-      </p>
-      <a :href="link">View resource</a>
+      <base-card>
+        <div>
+          <header>
+            <h3>{{ title }}</h3>
+            <button>Delete</button>
+          </header>
+        </div>
+        <p>
+          {{ description }}
+        </p>
+        <a :href="link">View resource</a>
+      </base-card>
     </li>
   </div>
 </template>
 
 <script>
+import BaseCard from '../UI/BaseCard';
 export default {
+  components: { BaseCard },
   props: ['title', 'description', 'link']
 };
 </script>
