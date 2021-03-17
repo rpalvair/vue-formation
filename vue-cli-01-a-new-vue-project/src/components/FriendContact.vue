@@ -1,33 +1,53 @@
 <template>
   <li>
-    <h2>{{ friend.name }}</h2>
+    <h2>{{ name }} {{ isFavorite ? "(Favorite)" : "" }}</h2>
+    <button @click="toggleFavorite">Toogle favorite</button>
     <button @click="toggleDetails">
       {{ detailsAreVisible ? "Hide Details" : "Show Details" }}
     </button>
     <ul v-if="detailsAreVisible">
-      <li><strong>Phone : </strong>{{ friend.phone }}</li>
-      <li><strong>Email : </strong>{{ friend.email }}</li>
+      <li><strong>Phone : </strong>{{ phoneNumber }}</li>
+      <li><strong>Email : </strong>{{ emailAddress }}</li>
     </ul>
+    <button @click="deleteFriend">Delete</button>
   </li>
 </template>
 
 <script>
 export default {
+  //   props: ["name", "phoneNumber", "emailAddress", "isFavorite"],
+  props: {
+    name: { type: String, required: true },
+    id: { type: String, required: true },
+    phoneNumber: { type: String, required: true },
+    emailAddress: { type: String, required: true },
+    isFavorite: {
+      type: Boolean,
+      required: false,
+      default: false,
+      //   validator: function(value) {
+      //     return value === "1" || value === "0"
+      //   },
+    },
+  },
+  emits: ["toggleFavorite","deleteFriend"],
   data() {
     return {
       detailsAreVisible: false,
-      friend: {
-        id: "manuel",
-        name: "Manuel Lorenz",
-        phone: "01234 5678 991",
-        email: "manuel@localhost.com",
-      },
+      friendIsFavorite: this.isFavorite,
     }
   },
   methods: {
     toggleDetails() {
       this.detailsAreVisible = !this.detailsAreVisible
     },
+    toggleFavorite() {
+      this.$emit("toggleFavorite", this.id)
+    },
+    deleteFriend() {
+      console.log("deleteFriend")
+      this.$emit("deleteFriend", this.id)
+    }
   },
 }
 </script>
@@ -63,7 +83,8 @@ header {
   list-style: none;
 }
 
-#app li {
+#app li,
+#app form  {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   margin: 1rem auto;
   border-radius: 10px;
@@ -95,5 +116,19 @@ header {
   background-color: #ec3169;
   border-color: #ec3169;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+}
+
+#app input {
+  font: inherit;
+  padding: 0.15rem;
+}
+#app label {
+  font-weight: bold;
+  margin-right: 1rem;
+  width: 7rem;
+  display: inline-block;
+}
+#app form div {
+  margin: 1rem 0;
 }
 </style>
