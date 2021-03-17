@@ -3,6 +3,7 @@
     <header>
       <h1>My Friends</h1>
     </header>
+    <add-friend @newFriend="newFriend"></add-friend>
     <ul>
       <friend-contact
         v-for="friend in friends"
@@ -19,9 +20,10 @@
 </template>
 
 <script>
+import AddFriend from "./components/AddFriend.vue"
 import FriendContact from "./components/FriendContact.vue"
 export default {
-  components: { FriendContact },
+  components: { FriendContact, AddFriend },
   data() {
     return {
       friends: [
@@ -53,6 +55,10 @@ export default {
       })
       this.friends = result
       console.log("friends", this.friends)
+    },
+    newFriend(friend) {
+      console.log("newFriend", friend)
+      this.friends.push(friend)
     },
   },
 }
