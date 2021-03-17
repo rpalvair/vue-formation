@@ -1,7 +1,7 @@
 <template>
-  <section>
+  <div>
     <slot></slot>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -9,7 +9,7 @@ export default {}
 </script>
 
 <style scoped>
-section {
+div {
   margin: 2rem auto;
   max-width: 30rem;
   border-radius: 12px;
