@@ -1,7 +1,9 @@
 <template>
   <div>
     <header>
-      <slot name="header"></slot>
+      <slot name="header">
+          <!-- <h2>Default content</h2> -->
+      </slot>
     </header>
     <slot></slot>
   </div>
