@@ -1,10 +1,14 @@
 <template>
   <div>
     <base-card>
-      <base-button @click="switchTab('stored-resources')"
+      <base-button
+        @click="switchTab('stored-resources')"
+        :mode="storedResButtonMode"
         >Stored Resources</base-button
       >
-      <base-button @click="switchTab('add-resource')">Add Resource</base-button>
+      <base-button @click="switchTab('add-resource')" :mode="addResButtonMode"
+        >Add Resource</base-button
+      >
     </base-card>
     <component :is="selectedTab"></component>
   </div>
@@ -35,6 +39,14 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    storedResButtonMode() {
+      return this.selectedTab === 'stored-resources' ? null : 'flat';
+    },
+    addResButtonMode() {
+      return this.selectedTab === 'add-resource' ? null : 'flat';
+    }
   },
   methods: {
     switchTab(value) {
