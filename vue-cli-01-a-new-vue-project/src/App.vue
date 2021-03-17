@@ -63,9 +63,9 @@ export default {
     },
     deleteFriend(id) {
       console.log("Id to delete", id)
-      const friendToDelete = this.friends.find((value) => value.id == id)
-      console.log("friendToDelete", friendToDelete)
-      this.friends.splice(friendToDelete.id, 1)
+      const list = this.friends.filter((value) => value.id != id)
+      console.log("list", list)
+      this.friends = list
     },
   },
 }
