@@ -1,6 +1,6 @@
 <template>
   <base-card>
-    <form @submit.prevent="addResource">
+    <form @submit.prevent="submit">
       <div class="form-control">
         <label for="title">Title</label>
         <input id="title" name="title" type="text" v-model="title" />
@@ -30,8 +30,7 @@ import BaseButton from '../UI/BaseButton.vue';
 import BaseCard from '../UI/BaseCard.vue';
 export default {
   components: { BaseCard, BaseButton },
-  emits: ['addResource'],
-  inject: ['resources'],
+  inject: ['addResource'],
   data() {
     return {
       title: '',
@@ -40,16 +39,14 @@ export default {
     };
   },
   methods: {
-    addResource() {
-      console.log('resources', this.resources);
+    submit() {
       const newResource = {
         title: this.title,
         description: this.description,
         link: this.link,
         id: this.title.toLowerCase().replace(' ', '-')
       };
-      console.log('newResource', newResource);
-      this.resources.push(newResource);
+      this.addResource(newResource);
     }
   }
 };

@@ -51,11 +51,18 @@ export default {
   methods: {
     switchTab(value) {
       this.selectedTab = value;
+    },
+    addResource(resource) {
+      console.log('storedResources', this.storedResources);
+      console.log('newResource', resource);
+      this.storedResources.unshift(resource);
+      this.selectedTab = 'stored-resources';
     }
   },
   provide() {
     return {
-      resources: this.storedResources
+      resources: this.storedResources,
+      addResource: this.addResource
     };
   }
 };
