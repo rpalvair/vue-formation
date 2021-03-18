@@ -52,17 +52,44 @@
     <div class="form-control">
       <h2>How do you learn?</h2>
       <div>
-        <input id="how-video" name="how" type="radio" value="video" v-model="how" />
+        <input
+          id="how-video"
+          name="how"
+          type="radio"
+          value="video"
+          v-model="how"
+        />
         <label for="how-video">Video Courses</label>
       </div>
       <div>
-        <input id="how-blogs" name="how" type="radio" value="blogs" v-model="how" />
+        <input
+          id="how-blogs"
+          name="how"
+          type="radio"
+          value="blogs"
+          v-model="how"
+        />
         <label for="how-blogs">Blogs</label>
       </div>
       <div>
-        <input id="how-other" name="how" type="radio" value="other" v-model="how" />
+        <input
+          id="how-other"
+          name="how"
+          type="radio"
+          value="other"
+          v-model="how"
+        />
         <label for="how-other">Other</label>
       </div>
+    </div>
+    <div class="form-control">
+      <input
+        type="checkbox"
+        id="confirm-terms"
+        name="confirm-terms"
+        v-model="confirm"
+      />
+      <label for="confirm-terms">Agree to terms to use ?</label>
     </div>
     <div>
       <button>Save Data</button>
@@ -78,7 +105,8 @@ export default {
       userAge: null,
       referer: 'wom',
       interest: [],
-      how: null
+      how: null,
+      confirm: false
     };
   },
   methods: {
@@ -91,6 +119,8 @@ export default {
       console.log('how', this.how);
       this.interest = [];
       this.how = [];
+      console.log('confirm', this.confirm);
+      this.confirm = false;
     }
   }
 };
