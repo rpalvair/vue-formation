@@ -48,8 +48,16 @@ export default {
         })
         .then(data => {
           console.log('data', data);
-          const values = Object.values(data);
-          this.results = values;
+          const tempList = [];
+          for (const key in data) {
+            tempList.push({
+              id: key,
+              name: data[key].name,
+              rating: data[key].rating
+            });
+          }
+          this.results = tempList;
+          console.log('results', this.results);
         })
         .catch(error => console.error(error));
     }
