@@ -63,6 +63,7 @@ export default {
           }
         })
         .then(data => {
+          this.isLoading = false;
           console.log('data', data);
           const tempList = [];
           for (const key in data) {
@@ -74,7 +75,6 @@ export default {
           }
           this.results = tempList;
           console.log('results', this.results);
-          this.isLoading = false;
         })
         .catch(err => {
           console.error('error', err);
