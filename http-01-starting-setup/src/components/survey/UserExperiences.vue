@@ -50,11 +50,12 @@ export default {
           console.log('data', data);
           const values = Object.values(data);
           this.results = values;
-        });
+        })
+        .catch(error => console.error(error));
     }
   },
   mounted() {
-    this.loadExperiences()
+    this.loadExperiences();
   }
 };
 </script>
