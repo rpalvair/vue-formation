@@ -11,15 +11,18 @@
     </section>
     <menu>
       <slot name="actions">
-          <base-button @click="$emit('close')">Close</base-button>
+        <base-button @click="$emit('close')">Close</base-button>
       </slot>
     </menu>
   </dialog>
 </template>
 
 <script>
+import BaseButton from './BaseButton.vue';
 export default {
-  props: ['title']
+  components: { BaseButton },
+  props: ['title'],
+  emits: ['close']
 };
 </script>
 <style scoped>
