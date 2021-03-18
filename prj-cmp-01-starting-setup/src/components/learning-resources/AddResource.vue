@@ -22,31 +22,58 @@
         <base-button type="submit">Add Resource</base-button>
       </div>
     </form>
+    <base-dialog v-if="invalid" title="Invalid Input" @close="confirmError">
+      <template #default>
+          <p>
+              Unfortunately, at least one input value is invalid.
+          </p>
+          <p>
+              Please check all inputs and make sure you enter at least a few characters into each
+              input field.
+          </p>
+      </template>
+      <template #actions
+        ><base-button @click="confirmError">Okay</base-button></template
+      >
+    </base-dialog>
   </base-card>
 </template>
 
 <script>
 import BaseButton from '../UI/BaseButton.vue';
 import BaseCard from '../UI/BaseCard.vue';
+import BaseDialog from '../UI/BaseDialog.vue';
 export default {
-  components: { BaseCard, BaseButton },
+  components: { BaseCard, BaseButton, BaseDialog },
   inject: ['addResource'],
   data() {
     return {
       title: '',
       description: '',
-      link: ''
+      link: '',
+      invalid: false
     };
   },
   methods: {
     submit() {
-      const newResource = {
-        title: this.title,
-        description: this.description,
-        link: this.link,
-        id: this.title.toLowerCase().replace(' ', '-')
-      };
-      this.addResource(newResource);
+      if (
+        this.title.trim() === '' ||
+        this.description.trim() === '' ||
+        this.link.trim() === ''
+      ) {
+        this.invalid = true;
+      } else {
+        const newResource = {
+          title: this.title,
+          description: this.description,
+          link: this.link,
+          id: this.title.toLowerCase().replace(' ', '-')
+        };
+        this.addResource(newResource);
+      }
+    },
+    confirmError() {
+      this.invalid = false;
     }
   }
 };
