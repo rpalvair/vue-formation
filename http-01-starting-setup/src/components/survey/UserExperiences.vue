@@ -10,7 +10,10 @@
       <p v-if="isLoading">
         Loading...
       </p>
-      <p v-else-if="!isLoading &&(!results || results.length === 0)">
+      <p v-else-if="!isLoading && error">
+        {{ error }}
+      </p>
+      <p v-else-if="!isLoading && (!results || results.length === 0)">
         No stored experiences found. Start adding some survey results first.
       </p>
       <ul v-else-if="!isLoading && results && results.length > 0">
@@ -35,7 +38,8 @@ export default {
   data() {
     return {
       results: [],
-      isLoading: false
+      isLoading: false,
+      error: null
     };
   },
   methods: {
@@ -52,7 +56,11 @@ export default {
       )
         .then(response => {
           console.log('response', response);
-          return response.json();
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Failed to reach the endpoint');
+          }
         })
         .then(data => {
           console.log('data', data);
@@ -68,7 +76,11 @@ export default {
           console.log('results', this.results);
           this.isLoading = false;
         })
-        .catch(error => console.error(error));
+        .catch(err => {
+          console.error('error', err);
+          this.error = 'Failed to fetch data - please try again';
+          this.isLoading = false;
+        });
     }
   },
   mounted() {
