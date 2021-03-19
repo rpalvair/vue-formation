@@ -12,14 +12,23 @@ export default {
   inject: ['teams'],
   computed: {
     link() {
-      return (
-        '/teams/' +
-        this.teams
-          .filter(val => val.name === this.name)
-          .flatMap(team => team.id)
-      );
-    }
-  }
+      return { name: 'team-members', params: { id: this.getTeamId() } };
+      // return { path: '/teams' + this.getTeamId() };
+      //   return (
+      //     '/teams/' +
+      //     this.teams
+      //       .filter(val => val.name === this.name)
+      //       .flatMap(team => team.id)
+      //   );
+    },
+  },
+  methods: {
+    getTeamId() {
+      return this.teams
+        .filter((val) => val.name === this.name)
+        .flatMap((team) => team.id)[0];
+    },
+  },
 };
 </script>
 
