@@ -21,6 +21,7 @@ export default {
     UserItem
   },
   inject: ['teams', 'users'],
+  props:['id'],
   data() {
     return {
       teamName: 'Test',
@@ -28,12 +29,11 @@ export default {
     };
   },
   created() {
-    this.members = this.loadTeamMembers(this.$route);
+    this.members = this.loadTeamMembers(this.id);
     console.log('members', this.members);
   },
   methods: {
-    loadTeamMembers(route) {
-      const id = route.params.id;
+    loadTeamMembers(id) {
       return this.teams
         .filter(value => value.id === id)
         .flatMap(team => {
@@ -47,8 +47,8 @@ export default {
     }
   },
   watch: {
-    $route(newRoute) {
-      this.members = this.loadTeamMembers(newRoute);
+    id(id) {
+      this.members = this.loadTeamMembers(id);
     }
   }
 };
