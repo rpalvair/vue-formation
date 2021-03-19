@@ -19,15 +19,27 @@ export default {
   components: {
     UserItem
   },
+  inject: ['teams', 'users'],
   data() {
     return {
       teamName: 'Test',
-      members: [
-        { id: 'u1', fullName: 'Max Schwarz', role: 'Engineer' },
-        { id: 'u2', fullName: 'Max Schwarz', role: 'Engineer' },
-      ],
+      members: []
     };
   },
+  created() {
+    const id = this.$route.params.id;
+    this.members = this.teams
+      .filter(value => value.id === id)
+      .flatMap(team => {
+        this.teamName = team.name;
+        return team.members;
+      })
+      .flatMap(membersId => {
+        console.log('membersId', membersId);
+        return this.users.filter(user => user.id === membersId);
+      });
+    console.log('members', this.members);
+  }
 };
 </script>
 

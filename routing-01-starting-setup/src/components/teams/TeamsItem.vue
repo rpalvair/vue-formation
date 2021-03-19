@@ -3,12 +3,22 @@
     <h3>{{ name }}</h3>
     <div class="team-members">{{ memberCount }} Members</div>
     <a href="#">View Members</a>
+    <router-link :to="link">View Members</router-link>
   </li>
 </template>
 
 <script>
 export default {
   props: ['name', 'memberCount'],
+  inject: ['teams'],
+  computed: {
+    link() {
+      return (
+        '/teams/' +
+        this.teams.filter(val => val.name === this.name).flatMap(team => team.id)
+      );
+    }
+  }
 };
 </script>
 
