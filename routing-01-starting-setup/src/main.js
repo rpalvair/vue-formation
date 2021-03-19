@@ -5,6 +5,8 @@ import TeamsList from './components/teams/TeamsList.vue';
 import UsersList from './components/users/UsersList.vue';
 import TeamMembers from './components/teams/TeamMembers.vue';
 import NotFound from './components/nav/NotFound.vue';
+import TeamsFooter from "./components/teams/TeamsFooter.vue"
+import UsersFooter from "./components/users/UsersFooter.vue"
 
 const app = createApp(App);
 const router = createRouter({
@@ -12,17 +14,29 @@ const router = createRouter({
   routes: [
     { path: '/', redirect: '/teams' },
     {
-      name: 'teams', path: '/teams', component: TeamsList, children: [
+      name: 'teams',
+      path: '/teams',
+      components: { main: TeamsList, footer: TeamsFooter },
+      children: [
         { name: 'team-members', path: ':id', component: TeamMembers, props: true },
       ]
     },
-    { path: '/users', component: UsersList },
-
+    {
+      path: '/users',
+      components: { main: UsersList, footer: UsersFooter },
+    },
     { path: '/:notFound(.*)', component: NotFound }
   ],
   linkActiveClass: 'active'
 });
+const footerRouter = createRouter({
+  name: 'footer',
+  history: createWebHistory(),
+  routes: [
+  ],
+  linkActiveClass: 'active'
+});
 
-app.use(router);
+app.use(router, footerRouter);
 
 app.mount('#app');
