@@ -18,39 +18,40 @@ import UserItem from '../users/UserItem.vue';
 
 export default {
   components: {
-    UserItem
+    UserItem,
   },
   inject: ['teams', 'users'],
-  props:['id'],
+  props: ['id'],
   data() {
     return {
       teamName: 'Test',
-      members: []
+      members: [],
     };
   },
   created() {
     this.members = this.loadTeamMembers(this.id);
     console.log('members', this.members);
+    console.log('sort', this.$route.query.sort);
   },
   methods: {
     loadTeamMembers(id) {
       return this.teams
-        .filter(value => value.id === id)
-        .flatMap(team => {
+        .filter((value) => value.id === id)
+        .flatMap((team) => {
           this.teamName = team.name;
           return team.members;
         })
-        .flatMap(membersId => {
+        .flatMap((membersId) => {
           console.log('membersId', membersId);
-          return this.users.filter(user => user.id === membersId);
+          return this.users.filter((user) => user.id === membersId);
         });
-    }
+    },
   },
   watch: {
     id(id) {
       this.members = this.loadTeamMembers(id);
-    }
-  }
+    },
+  },
 };
 </script>
 

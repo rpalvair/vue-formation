@@ -12,7 +12,11 @@ export default {
   inject: ['teams'],
   computed: {
     link() {
-      return { name: 'team-members', params: { id: this.getTeamId() } };
+      return {
+        name: 'team-members',
+        params: { id: this.getTeamId() },
+        query: { sort: 'asc' },
+      };
       // return { path: '/teams' + this.getTeamId() };
       //   return (
       //     '/teams/' +
