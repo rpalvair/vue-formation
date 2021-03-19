@@ -2,7 +2,6 @@
   <li>
     <h3>{{ name }}</h3>
     <div class="team-members">{{ memberCount }} Members</div>
-    <a href="#">View Members</a>
     <router-link :to="link">View Members</router-link>
   </li>
 </template>
@@ -15,7 +14,9 @@ export default {
     link() {
       return (
         '/teams/' +
-        this.teams.filter(val => val.name === this.name).flatMap(team => team.id)
+        this.teams
+          .filter(val => val.name === this.name)
+          .flatMap(team => team.id)
       );
     }
   }
