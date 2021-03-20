@@ -33,6 +33,13 @@ export default {
     console.log('members', this.members);
     console.log('sort', this.$route.query.sort);
   },
+  beforeRouteUpdate(to, from, next) {
+    console.log('BeforeRouteUpdate TeamMembersVue');
+    console.log(to, from);
+    // console.log('Reload members');
+    // this.members = this.loadTeamMembers(to.params.id);
+    next();
+  },
   methods: {
     loadTeamMembers(id) {
       return this.teams
