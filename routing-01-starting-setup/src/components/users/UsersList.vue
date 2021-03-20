@@ -17,6 +17,11 @@ export default {
     confirm() {
       this.$router.push('/teams')
     }
+  },
+  beforeRouteEnter(to,from,next) {
+    console.log("BeforeRouterEnter UsersList")
+    console.log(to,from)
+    next()
   }
 };
 </script>
