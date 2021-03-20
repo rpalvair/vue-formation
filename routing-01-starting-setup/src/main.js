@@ -41,14 +41,7 @@ const router = createRouter({
     }
   }
 });
-const footerRouter = createRouter({
-  name: 'footer',
-  history: createWebHistory(),
-  routes: [
-  ],
-  linkActiveClass: 'active'
-});
 
-app.use(router, footerRouter);
+app.use(router);
 
 app.mount('#app');
