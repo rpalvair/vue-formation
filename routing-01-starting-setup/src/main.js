@@ -50,7 +50,12 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   console.log("Global beforeEach")
   console.log(to, from)
-  next()
+  if (to.meta.needsAuth) {
+    console.log("Needs auth")
+    next()
+  } else {
+    next()
+  }
   // next(false) stop the navigation
   // next({ name: 'team-members', params: { id: 't2' } }) //navigate to a route
 })
