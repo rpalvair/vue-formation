@@ -55,6 +55,11 @@ router.beforeEach((to, from, next) => {
   // next({ name: 'team-members', params: { id: 't2' } }) //navigate to a route
 })
 
+router.afterEach((to, from) => {
+  console.log("Global afterEach")
+  console.log(to, from) //here we can't stop the navigation
+})
+
 app.use(router);
 
 app.mount('#app');
