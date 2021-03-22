@@ -4,7 +4,15 @@
     <button @click="animateBlock">Animate</button>
   </div>
   <div class="container">
-    <transition name="para">
+    <transition
+      name="para"
+      @before-enter="beforeEnter"
+      @before-leave="beforeLeave"
+      @enter="enter"
+      @after-enter="afterEnter"
+      @leave="leave"
+      @after-leave="afterLeave"
+    >
       <p v-if="paraIsVisible">This is only sometimes visible...</p>
     </transition>
     <button @click="toggleParagraph">Toggle Paragraph</button>
@@ -52,6 +60,24 @@ export default {
     },
     hideUsers() {
       this.usersAreVisible = false;
+    },
+    beforeEnter(el) {
+      console.log('beforeEnter', el);
+    },
+    beforeLeave(el) {
+      console.log('beforeLeave', el);
+    },
+    enter(el) {
+      console.log('enter', el);
+    },
+    afterEnter(el) {
+      console.log('afterEnter', el);
+    },
+    leave(el) {
+      console.log('leave', el);
+    },
+    afterLeave(el) {
+      console.log('afterLeave', el);
     },
   },
 };
@@ -149,7 +175,7 @@ button:active {
 }
 
 .para-enter-active {
-  animation: custom-fade-enter 0.3s ease-out;
+  animation: custom-fade-enter 2s ease-out;
 }
 
 .para-enter-to {
@@ -159,7 +185,7 @@ button:active {
 }
 
 .para-leave-active {
-  animation: custom-fade-leave 0.3s ease-out;
+  animation: custom-fade-leave 2s ease-out;
 }
 
 .para-leave-to {
@@ -178,7 +204,7 @@ button:active {
   transition: opacity 0.3s ease-out;
 }
 
-.fade-button-enter-to ,
+.fade-button-enter-to,
 .fade-button-leave-from {
   opacity: 1;
 }
