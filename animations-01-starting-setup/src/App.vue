@@ -1,4 +1,5 @@
 <template>
+  <router-view></router-view>
   <div class="container">
     <users-list></users-list>
   </div>
