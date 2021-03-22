@@ -1,5 +1,9 @@
 <template>
-  <router-view></router-view>
+  <router-view v-slot="slotProps">
+    <transition name="route">
+      <component :is="slotProps.Component"></component>
+    </transition>
+  </router-view>
   <div class="container">
     <users-list></users-list>
   </div>
@@ -226,6 +230,14 @@ button:active {
 .fade-button-leave-from {
   opacity: 1;
 }
+
+.route-enter-active {
+  animation: custom-fade-enter 0.4s ease-out;
+}
+.route-leave-active {
+  animation: custom-fade-leave 0.4s ease-out;
+}
+
 @keyframes custom-fade-enter {
   0% {
     opacity: 0;
