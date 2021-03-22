@@ -63,21 +63,43 @@ export default {
     },
     beforeEnter(el) {
       console.log('beforeEnter', el);
+      el.style.opacity = 0;
     },
     beforeLeave(el) {
       console.log('beforeLeave', el);
+      el.style.opacity = 1;
     },
-    enter(el) {
+    enter(el, done) {
       console.log('enter', el);
+      let round = 1;
+      const interval = setInterval(() => {
+        el.style.opacity = round * 0.1;
+        round++;
+        if (round > 10) {
+          clearInterval(interval);
+          done();
+        }
+      }, 20);
     },
     afterEnter(el) {
       console.log('afterEnter', el);
     },
-    leave(el) {
+    leave(el, done) {
       console.log('leave', el);
+      console.log('beforeLeave', el);
+      let round = 1;
+      const interval = setInterval(() => {
+        el.style.opacity = 1 - round * 0.1;
+        round++;
+        if (round > 10) {
+          clearInterval(interval);
+          done();
+        }
+      }, 20);
     },
     afterLeave(el) {
       console.log('afterLeave', el);
+      el.style.opacity = 0;
     },
   },
 };
@@ -170,26 +192,6 @@ button:active {
   opacity: 0;
   transform: translateY(-30px);
 } */
-
-.para-enter-from {
-}
-
-.para-enter-active {
-  animation: custom-fade-enter 2s ease-out;
-}
-
-.para-enter-to {
-}
-
-.para-leave-from {
-}
-
-.para-leave-active {
-  animation: custom-fade-leave 2s ease-out;
-}
-
-.para-leave-to {
-}
 
 .fade-button-enter-from,
 .fade-button-leave-to {
