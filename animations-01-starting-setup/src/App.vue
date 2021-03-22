@@ -12,6 +12,8 @@
       @after-enter="afterEnter"
       @leave="leave"
       @after-leave="afterLeave"
+      @enter-cancelled="enterCancelled"
+      @leave-cancelled="leaveCancelled"
     >
       <p v-if="paraIsVisible">This is only sometimes visible...</p>
     </transition>
@@ -40,6 +42,8 @@ export default {
       animatedBlock: false,
       paraIsVisible: false,
       usersAreVisible: false,
+      enterInterval: null,
+      leaveInterval: null,
     };
   },
   methods: {
@@ -72,11 +76,11 @@ export default {
     enter(el, done) {
       console.log('enter', el);
       let round = 1;
-      const interval = setInterval(() => {
-        el.style.opacity = round * 0.1;
+      this.enterInterval = setInterval(() => {
+        el.style.opacity = round * 0.01;
         round++;
         if (round > 10) {
-          clearInterval(interval);
+          clearInterval(this.enterInterval);
           done();
         }
       }, 20);
@@ -88,11 +92,11 @@ export default {
       console.log('leave', el);
       console.log('beforeLeave', el);
       let round = 1;
-      const interval = setInterval(() => {
-        el.style.opacity = 1 - round * 0.1;
+      this.leaveInterval = setInterval(() => {
+        el.style.opacity = 1 - round * 0.01;
         round++;
         if (round > 10) {
-          clearInterval(interval);
+          clearInterval(this.leaveInterval);
           done();
         }
       }, 20);
@@ -100,6 +104,12 @@ export default {
     afterLeave(el) {
       console.log('afterLeave', el);
       el.style.opacity = 0;
+    },
+    enterCancelled() {
+      clearInterval(this.enterInterval);
+    },
+    leaveCancelled() {
+      clearInterval(this.leaveInterval);
     },
   },
 };
