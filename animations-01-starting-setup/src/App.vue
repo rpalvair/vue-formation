@@ -9,7 +9,7 @@
     </transition>
     <button @click="toggleParagraph">Toggle Paragraph</button>
   </div>
-  <base-modal @close="hideDialog" v-if="dialogIsVisible">
+  <base-modal @close="hideDialog" :open="dialogIsVisible">
     <p>This is a test dialog!</p>
     <button @click="hideDialog">Close it!</button>
   </base-modal>
@@ -104,7 +104,7 @@ button:active {
   }
 }
 
-.v-enter-from {
+/* .v-enter-from {
   opacity: 0;
   transform: translateY(-30px);
 }
@@ -130,7 +130,7 @@ button:active {
 .v-leave-to {
   opacity: 0;
   transform: translateY(-30px);
-}
+} */
 
 .para-enter-from {
 }
@@ -151,7 +151,6 @@ button:active {
 
 .para-leave-to {
 }
-
 @keyframes custom-fade-enter {
   0% {
     opacity: 0;
