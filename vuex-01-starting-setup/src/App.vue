@@ -29,7 +29,7 @@ export default {
     add(value) {
       //this.$store.commit('increase', { value: 11 });
       // this.$store.commit({ type: 'increase', value: 1 });
-      this.$store.dispatch({ type: 'increase', value: value });
+      this.$store.dispatch({ type: 'counterModule/increase', value: value });
     },
   },
   computed: {

@@ -1,5 +1,6 @@
 
 const counterModule = {
+    namespaced: true,
     state() {
         return {
             counter: 0,
@@ -27,6 +28,7 @@ const counterModule = {
             console.log("increase action", context)
             context.commit('increase', paylod)
         },
+
     },
     getters: {
         finalCounter(state) {
@@ -43,7 +45,7 @@ const counterModule = {
             return finalCounter
         },
         testAuth(state, getters, rootState, rootGetters) {
-            console.log(state,getters,rootGetters)
+            console.log(state, getters, rootGetters)
             return rootState.isLoggedIn
         }
     }

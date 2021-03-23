@@ -3,7 +3,7 @@ import counterModule from './counterModule'
 
 const store = createStore({
     modules: {
-        counterModule
+        counterModule //namespace 
     },
     state() {
         return {
