@@ -1,8 +1,5 @@
 <template>
   <the-header></the-header>
-  <div class="container">
-    {{ counter }}
-  </div>
   <router-view></router-view>
 </template>
 
@@ -47,11 +44,11 @@ export default {
       cart: { items: [], total: 0, qty: 0 },
     };
   },
-  computed: {
-    counter() {
-      return this.$store.getters.getCounter;
-    },
-  },
+  // computed: {
+  //   counter() {
+  //     return this.$store.getters.getCounter;
+  //   },
+  // },
   provide() {
     return {
       isLoggedIn: this.isLoggedIn,
@@ -96,12 +93,11 @@ export default {
     },
     login() {
       this.isLoggedIn = true;
-      this.increment();
     },
     logout() {
       this.isLoggedIn = false;
     },
-    ...mapActions(['increment']),
+    // ...mapActions(['increment']),
   },
 };
 </script>
