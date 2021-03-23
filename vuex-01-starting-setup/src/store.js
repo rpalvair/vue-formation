@@ -10,6 +10,10 @@ const store = createStore({
         increment(state) {
             console.log("increment")
             state.counter++
+        },
+        increase(state, payload) {
+            console.log("increase with payload", payload)
+            state.counter += payload.value
         }
     }
 })
