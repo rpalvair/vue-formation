@@ -3,7 +3,7 @@ export default {
         const productData = payload.product
         console.log('add product', productData)
         const productInCartIndex = state.cart.items.findIndex(
-            (ci) => ci.productId === productData.id
+            (ci) => ci.productId === payload.productId
         );
 
         if (productInCartIndex >= 0) {
