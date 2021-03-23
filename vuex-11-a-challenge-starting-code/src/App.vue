@@ -1,14 +1,17 @@
 <template>
   <the-header></the-header>
+  <div class="container">
+    {{ counter }}
+  </div>
   <router-view></router-view>
 </template>
 
 <script>
 import TheHeader from './components/nav/TheHeader.vue';
-
+import { mapActions } from 'vuex';
 export default {
   components: {
-    TheHeader
+    TheHeader,
   },
   data() {
     return {
@@ -43,6 +46,11 @@ export default {
       ],
       cart: { items: [], total: 0, qty: 0 },
     };
+  },
+  computed: {
+    counter() {
+      return this.$store.getters.getCounter;
+    },
   },
   provide() {
     return {
@@ -88,10 +96,12 @@ export default {
     },
     login() {
       this.isLoggedIn = true;
+      this.increment();
     },
     logout() {
       this.isLoggedIn = false;
     },
+    ...mapActions(['increment']),
   },
 };
 </script>
