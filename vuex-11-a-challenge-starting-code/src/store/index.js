@@ -5,23 +5,26 @@ import { createStore } from 'vuex'
 const store = createStore({
     state() {
         return {
-            counter: 0
+            isLoggedIn: false,
         }
     },
     mutations: {
-        increment(state) {
-            console.log("increment")
-            state.counter++
-        }
+        setAuth(state, payload) {
+            console.log("setAuth", payload)
+            state.isLoggedIn = payload.isAuth
+        },
     },
     actions: {
-        increment(context) {
-            context.commit('increment')
+        login(context) {
+            context.commit('setAuth', { isAuth: true })
+        },
+        logout(context) {
+            context.commit('setAuth', { isAuth: false })
         }
     },
     getters: {
-        getCounter(state) {
-            return state.counter
+        isAuthenticated(state) {
+            return state.isLoggedIn
         }
     }
 })

@@ -6,13 +6,14 @@
 <script>
 import TheHeader from './components/nav/TheHeader.vue';
 import { mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
+
 export default {
   components: {
     TheHeader,
   },
   data() {
     return {
-      isLoggedIn: false,
       products: [
         {
           id: 'p1',
@@ -44,14 +45,11 @@ export default {
       cart: { items: [], total: 0, qty: 0 },
     };
   },
-  // computed: {
-  //   counter() {
-  //     return this.$store.getters.getCounter;
-  //   },
-  // },
+  computed: {
+  ...mapGetters(['isAuthenticated']),
+  },
   provide() {
     return {
-      isLoggedIn: this.isLoggedIn,
       products: this.products,
       cart: this.cart,
       addProductToCart: this.addProductToCart,
@@ -97,7 +95,7 @@ export default {
     logout() {
       this.isLoggedIn = false;
     },
-    // ...mapActions(['increment']),
+    ...mapActions(['login','logout']),
   },
 };
 </script>
