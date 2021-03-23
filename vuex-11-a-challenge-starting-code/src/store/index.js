@@ -62,6 +62,15 @@ const store = createStore({
             }
             state.cart.qty++;
             state.cart.total += productData.price;
+        },
+        removeProduct(state, prodId) {
+            const productInCartIndex = state.cart.items.findIndex(
+                (cartItem) => cartItem.productId === prodId
+            );
+            const prodData = state.cart.items[productInCartIndex];
+            state.cart.items.splice(productInCartIndex, 1);
+            state.cart.qty -= prodData.qty;
+            state.cart.total -= prodData.price * prodData.qty;
         }
     },
     actions: {
@@ -74,6 +83,10 @@ const store = createStore({
         addProduct(context, payload) {
             console.log("payload", payload)
             context.commit('addProduct', payload)
+        },
+        removeProduct(context, payload) {
+            console.log("remove product", payload)
+            context.commit('removeProduct', payload)
         }
     },
     getters: {

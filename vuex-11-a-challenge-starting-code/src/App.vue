@@ -28,16 +28,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['login', 'logout', 'addProduct']),
-    removeProductFromCart(prodId) {
-      const productInCartIndex = this.cart.items.findIndex(
-        (cartItem) => cartItem.productId === prodId
-      );
-      const prodData = this.cart.items[productInCartIndex];
-      this.cart.items.splice(productInCartIndex, 1);
-      this.cart.qty -= prodData.qty;
-      this.cart.total -= prodData.price * prodData.qty;
-    },
+    ...mapActions(['login', 'logout', 'addProduct','removeProduct']),
     login() {
       this.isLoggedIn = true;
     },
