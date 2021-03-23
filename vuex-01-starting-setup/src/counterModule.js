@@ -11,6 +11,7 @@ const counterModule = {
             state.counter++
         },
         increase(state, payload) {
+            console.log("state", state)
             console.log("increase with payload", payload)
             state.counter += payload.value
         },
@@ -41,6 +42,10 @@ const counterModule = {
             }
             return finalCounter
         },
+        testAuth(state, getters, rootState, rootGetters) {
+            console.log(state,getters,rootGetters)
+            return rootState.isLoggedIn
+        }
     }
 }
 
