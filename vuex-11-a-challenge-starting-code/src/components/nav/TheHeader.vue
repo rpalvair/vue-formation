@@ -27,9 +27,9 @@
 <script>
 import { mapGetters } from 'vuex';
 export default {
-  inject: ['login', 'logout', 'cart'],
+  inject: ['login', 'logout'],
   computed: {
-    ...mapGetters(['isAuthenticated']),
+    ...mapGetters(['isAuthenticated', 'cart']),
   },
 };
 </script>
