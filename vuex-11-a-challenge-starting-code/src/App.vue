@@ -20,21 +20,8 @@ export default {
   computed: {
     ...mapGetters(['isAuthenticated']),
   },
-  provide() {
-    return {
-      removeProductFromCart: this.removeProductFromCart,
-      login: this.login,
-      logout: this.logout,
-    };
-  },
   methods: {
-    ...mapActions(['login', 'logout', 'addProduct','removeProduct']),
-    login() {
-      this.isLoggedIn = true;
-    },
-    logout() {
-      this.isLoggedIn = false;
-    },
+    ...mapActions(['login', 'logout', 'addProduct', 'removeProduct']),
   },
 };
 </script>
