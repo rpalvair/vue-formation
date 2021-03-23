@@ -34,7 +34,7 @@ export default {
   methods: {
     ...mapActions('cartModule', ['removeProduct']),
     remove() {
-      this.removeProduct(this.prodId);
+      this.removeProduct({ prodId: this.prodId });
     },
   },
 };

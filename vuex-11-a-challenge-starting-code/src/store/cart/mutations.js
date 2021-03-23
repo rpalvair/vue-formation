@@ -1,5 +1,6 @@
 export default {
-    addProduct(state, productData) {
+    addProduct(state, payload) {
+        const productData = payload.product
         console.log('add product', productData)
         const productInCartIndex = state.cart.items.findIndex(
             (ci) => ci.productId === productData.id
@@ -20,7 +21,8 @@ export default {
         state.cart.qty++;
         state.cart.total += productData.price;
     },
-    removeProduct(state, prodId) {
+    removeProduct(state, payload) {
+        const prodId = payload.prodId
         const productInCartIndex = state.cart.items.findIndex(
             (cartItem) => cartItem.productId === prodId
         );
