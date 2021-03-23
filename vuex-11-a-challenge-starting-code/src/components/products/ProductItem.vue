@@ -24,7 +24,7 @@ import { mapActions } from 'vuex';
 export default {
   props: ['id', 'image', 'title', 'price', 'description'],
   methods: {
-    ...mapActions(['addProduct']),
+    ...mapActions('cartModule', ['addProduct']),
     addToCart() {
       this.addProduct({
         id: this.id,

@@ -32,7 +32,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['removeProduct']),
+    ...mapActions('cartModule', ['removeProduct']),
     remove() {
       this.removeProduct(this.prodId);
     },

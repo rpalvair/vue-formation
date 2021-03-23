@@ -30,7 +30,7 @@ export default {
     cartTotal() {
       return this.cart.total.toFixed(2);
     },
-    ...mapGetters(['cart']),
+    ...mapGetters('cartModule', ['cart']),
   },
 };
 </script>

@@ -28,7 +28,8 @@
 import { mapGetters, mapActions } from 'vuex';
 export default {
   computed: {
-    ...mapGetters(['isAuthenticated', 'cart']),
+    ...mapGetters(['isAuthenticated']),
+    ...mapGetters('cartModule', ['cart']),
   },
   methods: {
     ...mapActions(['login', 'logout']),
