@@ -9,6 +9,7 @@
       LIST OF COACHES
       <li v-for="coach in filteredCoaches" :key="coach.id">{{ coach }}</li>
     </ul>
+    <h3 v-else>No coaches found.</h3>
   </section>
 </template>
 
@@ -16,10 +17,10 @@
 import { mapGetters } from 'vuex';
 export default {
   computed: {
-    ...mapGetters('coaches', ['coaches','hasCoaches']),
+    ...mapGetters('coaches', ['coaches', 'hasCoaches']),
     filteredCoaches() {
-      return this.coaches
-    }
+      return this.coaches;
+    },
   },
 };
 </script>
