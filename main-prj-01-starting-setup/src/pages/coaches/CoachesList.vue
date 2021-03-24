@@ -7,7 +7,7 @@
     </div>
     <ul v-if="hasCoaches">
       LIST OF COACHES
-      <li v-for="coach in coaches" :key="coach.id">{{ coach }}</li>
+      <li v-for="coach in filteredCoaches" :key="coach.id">{{ coach }}</li>
     </ul>
   </section>
 </template>
@@ -17,6 +17,9 @@ import { mapGetters } from 'vuex';
 export default {
   computed: {
     ...mapGetters('coaches', ['coaches','hasCoaches']),
+    filteredCoaches() {
+      return this.coaches
+    }
   },
 };
 </script>
