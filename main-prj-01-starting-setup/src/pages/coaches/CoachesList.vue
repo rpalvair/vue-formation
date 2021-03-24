@@ -1,5 +1,6 @@
 <template>
-  <h2>The coaches</h2>
+  <section>FILTER</section>
+  <section>LIST OF COACHES</section>
 </template>
 
 <script>
