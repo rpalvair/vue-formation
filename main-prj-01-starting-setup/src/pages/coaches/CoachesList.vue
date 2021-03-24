@@ -7,7 +7,12 @@
     </div>
     <ul v-if="hasCoaches">
       LIST OF COACHES
-      <li v-for="coach in filteredCoaches" :key="coach.id">{{ coach }}</li>
+      <coach-item
+        v-for="coach in filteredCoaches"
+        :key="coach.id"
+        v-bind="coach"
+      >
+      </coach-item>
     </ul>
     <h3 v-else>No coaches found.</h3>
   </section>
@@ -15,7 +20,9 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import CoachItem from './CoachItem';
 export default {
+  components: { CoachItem },
   computed: {
     ...mapGetters('coaches', ['coaches', 'hasCoaches']),
     filteredCoaches() {
@@ -24,3 +31,15 @@ export default {
   },
 };
 </script>
+<style scoped>
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+</style>
