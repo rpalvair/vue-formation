@@ -5,7 +5,7 @@
       <button>Refresh</button>
       <router-link to="/register">Register as Coach</router-link>
     </div>
-    <ul>
+    <ul v-if="hasCoaches">
       LIST OF COACHES
       <li v-for="coach in coaches" :key="coach.id">{{ coach }}</li>
     </ul>
@@ -16,7 +16,7 @@
 import { mapGetters } from 'vuex';
 export default {
   computed: {
-    ...mapGetters('coaches', ['coaches']),
+    ...mapGetters('coaches', ['coaches','hasCoaches']),
   },
 };
 </script>
