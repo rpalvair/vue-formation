@@ -24,8 +24,11 @@ export default {
 
     },
 
-    async loadCoaches(context) {
+    async loadCoaches(context, payload) {
         console.log("loadCoaches")
+        if (!payload.forceRefresh && !context.getters.shouldUpdate) {
+            return
+        }
         const response = await fetch(`${config.firebaseUrl}/coaches.json`, {
             method: 'GET',
             headers: {
@@ -52,5 +55,6 @@ export default {
             coaches.push(coach)
         }
         context.commit('setCoaches', coaches)
+        context.commit('setFetchTimestamp')
     }
 }
