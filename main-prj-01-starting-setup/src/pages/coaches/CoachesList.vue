@@ -1,4 +1,9 @@
 <template>
+  <base-dialog :show="!!error" title="An error occurred" @close="handleError">
+    <p>
+      {{ error }}
+    </p>
+  </base-dialog>
   <section>
     <coach-filter @change-filter="filterUpdated"></coach-filter>
   </section>
@@ -35,11 +40,18 @@ import BaseButton from '../../components/ui/BaseButton.vue';
 import CoachFilter from './CoachFilter.vue';
 import BaseSpinner from '../../components/ui/BaseSpinner';
 export default {
-  components: { CoachItem, BaseCard, BaseButton, CoachFilter, BaseSpinner },
+  components: {
+    CoachItem,
+    BaseCard,
+    BaseButton,
+    CoachFilter,
+    BaseSpinner,
+  },
   data() {
     return {
       isLoading: false,
       activeFilters: null,
+      error: null,
     };
   },
   computed: {
@@ -69,8 +81,16 @@ export default {
     },
     async loadCoaches() {
       this.isLoading = true;
-      await this.$store.dispatch('coaches/loadCoaches');
+      try {
+        await this.$store.dispatch('coaches/loadCoaches');
+      } catch (e) {
+        this.error = e.message || 'Something went wrong';
+        console.log('error', e);
+      }
       this.isLoading = false;
+    },
+    handleError() {
+      this.error = null;
     },
   },
   created() {
