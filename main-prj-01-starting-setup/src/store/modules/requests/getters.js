@@ -1,8 +1,8 @@
 export default {
-    requests(state) {
-        return state.requests
+    requests(state, _, _2, rootGetters) {
+        return state.requests.filter(req => req.coachId === rootGetters.id)
     },
-    hasRequests(state) {
-        return state.requests.length > 0
+    hasRequests(_, getters) {
+        return getters.requests && getters.requests.length > 0
     }
 }
