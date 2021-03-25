@@ -1,37 +1,81 @@
 <template>
   <form @submit.prevent="submit">
-    <div class="form-control">
+    <div class="form-control" :class="{ invalid: !firstname.isValid }">
       <label for="firstname">Firstname</label>
-      <input type="text" id="firstname" v-model.trim="firstname" />
+      <input
+        type="text"
+        id="firstname"
+        v-model.trim="firstname.value"
+        @blur="clearValidity('firstname')"
+      />
+      <p v-if="!firstname.isValid">Firstname must not be empty.</p>
     </div>
 
-    <div class="form-control">
+    <div class="form-control" :class="{ invalid: !lastname.isValid }">
       <label for="lastname">Lastname</label>
-      <input type="text" id="lastname" v-model.trim="lastname" />
+      <input
+        type="text"
+        id="lastname"
+        v-model.trim="lastname.value"
+        @blur="clearValidity('lastname')"
+      />
+      <p v-if="!lastname.isValid">Lastname must not be empty.</p>
     </div>
-    <div class="form-control">
+    <div class="form-control" :class="{ invalid: !description.isValid }">
       <label for="description">Description</label>
-      <textarea rows="5" id="description" v-model="description"></textarea>
+      <textarea
+        rows="5"
+        id="description"
+        v-model="description.value"
+        @blur="clearValidity('description')"
+      ></textarea>
+      <p v-if="!description.isValid">Description must not be empty.</p>
     </div>
-    <div class="form-control">
+    <div class="form-control" :class="{ invalid: !rate.isValid }">
       <label for="rate">Hourly Rate</label>
-      <input type="number" id="rate" v-model.number="rate" />
+      <input
+        type="number"
+        id="rate"
+        v-model.number="rate.value"
+        @blur="clearValidity('rate')"
+      />
+      <p v-if="!rate.isValid">Rate must be greater than 0.</p>
     </div>
-    <div class="form-control">
+    <div class="form-control" :class="{ invalid: !areas.isValid }">
       <h3>Areas of Expertise</h3>
       <div>
-        <input type="checkbox" id="frontend" value="frontend" v-model="areas" />
+        <input
+          type="checkbox"
+          id="frontend"
+          value="frontend"
+          v-model="areas.value"
+          @blur="clearValidity('areas')"
+        />
         <label for="frontend">Frontend Development</label>
       </div>
       <div>
-        <input type="checkbox" id="backend" value="backend" v-model="areas" />
+        <input
+          type="checkbox"
+          id="backend"
+          value="backend"
+          v-model="areas.value"
+          @blur="clearValidity('areas')"
+        />
         <label for="backend">Backend Development</label>
       </div>
       <div>
-        <input type="checkbox" id="career" value="career" v-model="areas" />
+        <input
+          type="checkbox"
+          id="career"
+          value="career"
+          v-model="areas.value"
+          @blur="clearValidity('areas')"
+        />
         <label for="career">Career</label>
       </div>
+      <p v-if="!areas.isValid">At least one expertise must selected.</p>
     </div>
+    <p v-if="!formIsValid">Please fix the above errors and submit again.</p>
     <base-button>Register</base-button>
   </form>
 </template>
@@ -42,24 +86,70 @@ export default {
   emits: ['coach-added'],
   data() {
     return {
-      firstname: null,
-      lastname: null,
-      description: null,
-      rate: null,
-      areas: [],
+      firstname: {
+        value: '',
+        isValid: true,
+      },
+      lastname: {
+        value: '',
+        isValid: true,
+      },
+      description: {
+        value: '',
+        isValid: true,
+      },
+      rate: {
+        value: '',
+        isValid: true,
+      },
+      areas: {
+        value: [],
+        isValid: true,
+      },
+      formIsValid: true,
     };
   },
   methods: {
     submit() {
+      this.validateForm();
+      if (!this.formIsValid) {
+        return;
+      }
       const coach = {
-        firstname: this.firstname,
-        lastname: this.lastname,
-        description: this.description,
-        rate: this.rate,
-        areas: [...this.areas],
+        firstname: this.firstname.value,
+        lastname: this.lastname.value,
+        description: this.description.value,
+        rate: this.rate.value,
+        areas: [...this.areas.value],
       };
       console.log('submit', coach);
       this.$emit('coach-added', coach);
+    },
+    validateForm() {
+      this.formIsValid = true;
+      if (this.firstname.value === '') {
+        this.firstname.isValid = false;
+        this.formIsValid = false;
+      }
+      if (this.lastname.value === '') {
+        this.lastname.isValid = false;
+        this.formIsValid = false;
+      }
+      if (this.description.value === '') {
+        this.description.isValid = false;
+        this.formIsValid = false;
+      }
+      if (!this.rate.value || this.rate.value <= 0) {
+        this.rate.isValid = false;
+        this.formIsValid = false;
+      }
+      if (this.areas.value.length === 0) {
+        this.areas.isValid = false;
+        this.formIsValid = false;
+      }
+    },
+    clearValidity(input) {
+      this[input].isValid = true;
     },
   },
 };
