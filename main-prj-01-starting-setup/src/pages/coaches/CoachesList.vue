@@ -34,6 +34,7 @@ export default {
   components: { CoachItem, BaseCard, BaseButton, CoachFilter },
   data() {
     return {
+      isLoading: false,
       activeFilters: null,
     };
   },
@@ -62,8 +63,10 @@ export default {
     filterUpdated(filters) {
       this.activeFilters = filters;
     },
-    loadCoaches() {
-      this.$store.dispatch('coaches/loadCoaches');
+    async loadCoaches() {
+      this.isLoading = true;
+      await this.$store.dispatch('coaches/loadCoaches');
+      this.isLoading = false;
     },
   },
   created() {
