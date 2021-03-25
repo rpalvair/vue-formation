@@ -1,5 +1,7 @@
 <template>
-  <section>FILTER</section>
+  <section>
+    <coach-filter @change-filter="filterUpdated"></coach-filter>
+  </section>
   <section>
     <base-card>
       <div class="controls">
@@ -25,12 +27,38 @@ import { mapGetters } from 'vuex';
 import CoachItem from './CoachItem';
 import BaseCard from '../../components/ui/BaseCard';
 import BaseButton from '../../components/ui/BaseButton.vue';
+import CoachFilter from './CoachFilter.vue';
 export default {
-  components: { CoachItem, BaseCard, BaseButton },
+  components: { CoachItem, BaseCard, BaseButton, CoachFilter },
+  data() {
+    return {
+      activeFilters: null,
+    };
+  },
   computed: {
     ...mapGetters('coaches', ['coaches', 'hasCoaches']),
     filteredCoaches() {
-      return this.coaches;
+      return this.coaches.filter((coach) => {
+        if (this.activeFilters) {
+          let keepCoach = false;
+          Object.keys(this.activeFilters).map((key) => {
+            if (
+              !keepCoach &&
+              this.activeFilters[key] &&
+              coach.areas.includes(key)
+            ) {
+              keepCoach = true;
+            }
+          });
+          return keepCoach;
+        }
+        return true;
+      });
+    },
+  },
+  methods: {
+    filterUpdated(filters) {
+      this.activeFilters = filters;
     },
   },
 };
