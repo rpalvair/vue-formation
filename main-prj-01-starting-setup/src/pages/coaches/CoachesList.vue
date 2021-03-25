@@ -6,7 +6,9 @@
     <base-card>
       <div class="controls">
         <base-button mode="outline">Refresh</base-button>
-        <base-button to="/register" link>Register as Coach</base-button>
+        <base-button to="/register" link v-if="!isCoach"
+          >Register as Coach</base-button
+        >
       </div>
       <ul v-if="hasCoaches">
         LIST OF COACHES
@@ -36,7 +38,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('coaches', ['coaches', 'hasCoaches']),
+    ...mapGetters('coaches', ['coaches', 'hasCoaches', 'isCoach']),
     filteredCoaches() {
       return this.coaches.filter((coach) => {
         if (this.activeFilters) {

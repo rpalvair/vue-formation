@@ -8,7 +8,7 @@
 import CoachForm from './CoachForm.vue';
 import { mapActions } from 'vuex';
 export default {
-  components: { CoachForm },
+  components: { CoachForm }, 
   methods: {
     ...mapActions('coaches', ['saveCoach']),
     addCoach(value) {
