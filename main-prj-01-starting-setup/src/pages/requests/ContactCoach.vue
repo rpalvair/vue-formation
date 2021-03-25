@@ -17,6 +17,7 @@
   </form>
 </template>
 <script>
+import { mapActions } from 'vuex';
 export default {
   data() {
     return {
@@ -26,12 +27,19 @@ export default {
     };
   },
   methods: {
+    ...mapActions('requests', ['contactCoach']),
     submit() {
       this.validateForm();
       if (!this.formIsValid) {
         return;
       }
+      this.contactCoach({
+        email: this.email,
+        message: this.message,
+        id: this.$route.params.id,
+      });
       console.log('submit', this.$data);
+      this.$router.replace('/coaches')
     },
     validateForm() {
       this.formIsValid = true;
