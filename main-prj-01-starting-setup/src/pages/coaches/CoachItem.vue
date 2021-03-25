@@ -3,7 +3,12 @@
     <h3>{{ fullName }}</h3>
     <h4>${{ rate }}/hour</h4>
     <div>
-      <base-badge v-for="area in areas" :key="area" :title="area" :type="area"></base-badge>
+      <base-badge
+        v-for="area in areas"
+        :key="area"
+        :title="area"
+        :type="area"
+      ></base-badge>
     </div>
     <div class="actions">
       <base-button :to="contactLink" link mode="outline">Contact</base-button>
@@ -28,7 +33,7 @@ export default {
       return this.$route.path + '/' + this.id + '/contact';
     },
     viewDetailsLink() {
-      return this.$route.path + '/' + this.id;
+      return this.$route.path + this.id;
     },
   },
 };
