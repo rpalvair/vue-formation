@@ -5,7 +5,12 @@
         <h2>Request Received</h2>
       </header>
       <ul>
-        <request-item v-for="request in requests" :email="request.userEmail" :message="request.message" :key="request.id">
+        <request-item
+          v-for="request in requests"
+          :email="request.userEmail"
+          :message="request.message"
+          :key="request.id"
+        >
         </request-item>
       </ul>
       <h3 v-if="!hasRequests">You haven't received any requests yet!</h3>
@@ -25,6 +30,14 @@ export default {
       console.log('requests', requests);
       return requests;
     },
+  },
+  methods: {
+    loadRequests() {
+      this.$store.dispatch('requests/fetchRequests');
+    },
+  },
+  created() {
+    this.loadRequests();
   },
 };
 </script>
