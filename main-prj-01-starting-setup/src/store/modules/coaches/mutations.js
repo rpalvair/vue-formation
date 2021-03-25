@@ -10,5 +10,9 @@ export default {
             areas: payload.areas,
             description: payload.description
         })
+    },
+    setCoaches(state, payload) {
+        console.log("coaches", payload)
+        state.coaches = payload
     }
 }

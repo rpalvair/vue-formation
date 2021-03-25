@@ -22,5 +22,31 @@ export default {
         }
 
 
+    },
+
+    async loadCoaches(context) {
+        console.log("loadCoaches")
+        const response = await fetch(`${config.firebaseUrl}/coaches.json`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        console.log("response", response)
+        const data = await response.json()
+        console.log("data", data)
+        const coaches = []
+        for (const key in data) {
+            const coach = {
+                id: data[key].id,
+                firstName: data[key].firstname,
+                lastName: data[key].lastname,
+                hourlyRate: data[key].rate,
+                areas: data[key].areas,
+                description: data[key].description
+            }
+            coaches.push(coach)
+        }
+        context.commit('setCoaches', coaches)
     }
 }
