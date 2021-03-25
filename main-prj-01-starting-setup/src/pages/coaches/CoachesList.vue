@@ -6,11 +6,14 @@
     <base-card>
       <div class="controls">
         <base-button mode="outline" @click="loadCoaches()">Refresh</base-button>
-        <base-button to="/register" link v-if="!isCoach"
+        <base-button to="/register" link v-if="!isCoach && !isLoading"
           >Register as Coach</base-button
         >
       </div>
-      <ul v-if="hasCoaches">
+      <div v-if="isLoading">
+        <base-spinner></base-spinner>
+      </div>
+      <ul v-else-if="!isLoading && hasCoaches">
         LIST OF COACHES
         <coach-item
           v-for="coach in filteredCoaches"
@@ -30,8 +33,9 @@ import CoachItem from './CoachItem';
 import BaseCard from '../../components/ui/BaseCard';
 import BaseButton from '../../components/ui/BaseButton.vue';
 import CoachFilter from './CoachFilter.vue';
+import BaseSpinner from '../../components/ui/BaseSpinner';
 export default {
-  components: { CoachItem, BaseCard, BaseButton, CoachFilter },
+  components: { CoachItem, BaseCard, BaseButton, CoachFilter, BaseSpinner },
   data() {
     return {
       isLoading: false,
