@@ -14,6 +14,8 @@ export default {
     addCoach(value) {
       console.log('addCoach', value);
       this.saveCoach(value);
+      //   this.$router.push('/coaches')
+      this.$router.replace('/coaches'); //no possibility to come back to the previous page
     },
   },
 };
