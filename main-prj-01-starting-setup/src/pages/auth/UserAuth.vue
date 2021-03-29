@@ -1,34 +1,49 @@
 <template>
-  <base-card>
-    <form @submit.prevent="submitForm">
-      <div class="form-control">
-        <label for="email">E-mail</label>
-        <input type="email" id="email" v-model="email" />
-      </div>
-      <div class="form-control">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="password" />
-      </div>
-      <p v-if="!formIsValid">
-        Please enter a valid email and password(must be at least 6 characters
-        long).
+  <div>
+    <base-dialog :show="!!error" title="An error occurred" @close="handleError">
+      <p>
+        {{ error }}
       </p>
-      <base-button>{{ submitButtonCaption }}</base-button>
-      <base-button typ="button" mode="flat" @click.prevent="swichAuthMode">{{
-        switchModeButtonCaption
-      }}</base-button>
-    </form>
-  </base-card>
+    </base-dialog>
+    <base-dialog :show="isLoading" title="Authenticating..." fixed>
+      <base-spinner></base-spinner>
+    </base-dialog>
+    <base-card>
+      <form @submit.prevent="submitForm">
+        <div class="form-control">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" v-model="email" />
+        </div>
+        <div class="form-control">
+          <label for="password">Password</label>
+          <input type="password" id="password" v-model="password" />
+        </div>
+        <p v-if="!formIsValid">
+          Please enter a valid email and password(must be at least 6 characters
+          long).
+        </p>
+        <base-button>{{ submitButtonCaption }}</base-button>
+        <base-button typ="button" mode="flat" @click.prevent="swichAuthMode">{{
+          switchModeButtonCaption
+        }}</base-button>
+      </form>
+    </base-card>
+  </div>
 </template>
 
 <script>
+import BaseDialog from '../../components/ui/BaseDialog.vue';
+import BaseSpinner from '../../components/ui/BaseSpinner.vue';
 export default {
+  components: { BaseDialog, BaseSpinner },
   data() {
     return {
       email: '',
       password: '',
       formIsValid: true,
       mode: 'login',
+      isLoading: false,
+      error: null,
     };
   },
   computed: {
@@ -48,7 +63,7 @@ export default {
     },
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       this.formIsValid = true;
       console.log('submitForm');
       if (
@@ -59,14 +74,21 @@ export default {
         this.formIsValid = false;
         return;
       }
+      this.isLoading = true;
       console.log('mode', this.mode);
-      if (this.mode === 'signup') {
-        console.log('signup');
-        this.$store.dispatch('signup', {
-          email: this.email,
-          password: this.password,
-        });
+      try {
+        if (this.mode === 'signup') {
+          console.log('signup');
+          await this.$store.dispatch('signup', {
+            email: this.email,
+            password: this.password,
+          });
+        }
+      } catch (err) {
+        console.error(err);
+        this.error = err.message || 'Failed to authenticate. Try later!';
       }
+      this.isLoading = false;
     },
     swichAuthMode() {
       if (this.mode === 'login') {
@@ -74,6 +96,9 @@ export default {
       } else {
         this.mode = 'login';
       }
+    },
+    handleError() {
+      this.error = null;
     },
   },
 };
