@@ -86,7 +86,10 @@ export default {
         } else {
           await this.$store.dispatch('login', user);
         }
-        this.$router.replace('/coaches');
+        const pageToRedirect =
+          '/' + (this.$route.query.pageToRedirect || 'coaches');
+        console.log('pageToRedirect', pageToRedirect);
+        this.$router.replace(pageToRedirect);
       } catch (err) {
         console.error(err);
         this.error = err.message || 'Failed to authenticate. Try later!';
