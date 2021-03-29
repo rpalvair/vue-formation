@@ -54,7 +54,15 @@ export default {
                     reject(new Error(err.message) || 'Signup failed')
                 })
         })
-
-
+    }, logout(context) {
+        firebase.auth().signOut()
+            .then(() => {
+                console.log("User is logged out")
+                context.commit('setUser', {
+                    token: null,
+                    userId: null,
+                    tokenExpiration: null
+                })
+            })
     }
 }
