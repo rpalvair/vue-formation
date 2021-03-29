@@ -24,9 +24,11 @@ export default {
     },
 
     async fetchRequests(context) {
+        console.log("context", context)
         const userId = context.rootGetters.id
         console.log("userId", userId)
-        const response = await fetch(`${config.firebaseUrl}/requests/${userId}.json`)
+        const token = context.rootGetters.token
+        const response = await fetch(`${config.firebaseUrl}/requests/${userId}.json?auth=${token}`)
         const data = await response.json()
         if (!response.ok) {
             const error = new Error(data.message || 'Failed to send request')
