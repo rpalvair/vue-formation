@@ -86,6 +86,7 @@ export default {
         } else {
           await this.$store.dispatch('login', user);
         }
+        this.isLoading = false;
         const pageToRedirect =
           '/' + (this.$route.query.pageToRedirect || 'coaches');
         console.log('pageToRedirect', pageToRedirect);
@@ -94,7 +95,6 @@ export default {
         console.error(err);
         this.error = err.message || 'Failed to authenticate. Try later!';
       }
-      this.isLoading = false;
     },
     swichAuthMode() {
       if (this.mode === 'login') {
