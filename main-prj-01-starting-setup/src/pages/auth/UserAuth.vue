@@ -1,20 +1,20 @@
 <template>
   <base-card>
-    <form @click.prevent="submitForm">
+    <form @submit.prevent="submitForm">
       <div class="form-control">
         <label for="email">E-mail</label>
-        <input type="email" id="email" />
+        <input type="email" id="email" v-model="email" />
       </div>
       <div class="form-control">
         <label for="password">Password</label>
-        <input type="password" id="password" />
+        <input type="password" id="password" v-model="password" />
       </div>
       <p v-if="!formIsValid">
         Please enter a valid email and password(must be at least 6 characters
         long).
       </p>
       <base-button>{{ submitButtonCaption }}</base-button>
-      <base-button typ="button" mode="flat" @click="swichAuthMode">{{
+      <base-button typ="button" mode="flat" @click.prevent="swichAuthMode">{{
         switchModeButtonCaption
       }}</base-button>
     </form>
@@ -50,6 +50,7 @@ export default {
   methods: {
     submitForm() {
       this.formIsValid = true;
+      console.log('submitForm');
       if (
         this.email === '' ||
         !this.email.includes('@') ||
@@ -57,6 +58,14 @@ export default {
       ) {
         this.formIsValid = false;
         return;
+      }
+      console.log('mode', this.mode);
+      if (this.mode === 'signup') {
+        console.log('signup');
+        this.$store.dispatch('signup', {
+          email: this.email,
+          password: this.password,
+        });
       }
     },
     swichAuthMode() {
