@@ -43,6 +43,8 @@ export default {
                     credentials.user.getIdTokenResult()
                         .then(tokenResult => {
                             console.log("uid", user.uid);
+                            localStorage.setItem('token', tokenResult.token)
+                            localStorage.setItem('userId', user.uid)
                             context.commit('setUser', {
                                 token: tokenResult.token,
                                 userId: user.uid,
@@ -56,5 +58,16 @@ export default {
                 })
         })
 
+    },
+    autoLogin(context) {
+        const token = localStorage.getItem('token')
+        const userId = localStorage.getItem('userId')
+        if (token && userId) {
+            context.commit('setUser', {
+                token: token,
+                userId: userId,
+                tokenExpiration: null
+            })
+        }
     }
 }
