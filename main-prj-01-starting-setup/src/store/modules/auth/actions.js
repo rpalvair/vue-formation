@@ -7,8 +7,29 @@ export default {
         console.log("setId", payload)
         context.commit('setId', payload)
     },
-    login() {
-
+    login(context, payload) {
+        console.log("login", context, payload)
+        return new Promise((resolve, reject) => {
+            firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+                .then(credentials => {
+                    const user = credentials.user
+                    console.log("user from firebase", user)
+                    credentials.user.getIdTokenResult()
+                        .then(tokenResult => {
+                            console.log(`user with email ${user.email} is logged in`)
+                            console.log("uid", user.uid);
+                            context.commit('setUser', {
+                                token: tokenResult.token,
+                                userId: user.uid,
+                                tokenExpiration: tokenResult.expirationTime
+                            })
+                            resolve()
+                        })
+                }).catch(err => {
+                    console.error(err)
+                    reject(new Error(err.message) || 'Signup failed')
+                })
+        })
     },
     signup(context, payload) {
         console.log("signup", context, payload)
@@ -19,14 +40,10 @@ export default {
                     console.log("user from firebase", user)
                     credentials.user.getIdTokenResult()
                         .then(tokenResult => {
-                            console.log("tokenResult", tokenResult)
-                            const token = tokenResult.token
-                            console.log("token", token)
-                            const email = user.email
-                            console.log(`user with email ${email} is registered`)
+                            console.log(`user with email ${user.email} is registered`)
                             console.log("uid", user.uid);
                             context.commit('setUser', {
-                                token: token,
+                                token: tokenResult.token,
                                 userId: user.uid,
                                 tokenExpiration: tokenResult.expirationTime
                             })

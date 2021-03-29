@@ -76,13 +76,15 @@ export default {
       }
       this.isLoading = true;
       console.log('mode', this.mode);
+      const user = {
+        email: this.email,
+        password: this.password,
+      };
       try {
         if (this.mode === 'signup') {
-          console.log('signup');
-          await this.$store.dispatch('signup', {
-            email: this.email,
-            password: this.password,
-          });
+          await this.$store.dispatch('signup', user);
+        } else {
+          await this.$store.dispatch('login', user);
         }
       } catch (err) {
         console.error(err);
