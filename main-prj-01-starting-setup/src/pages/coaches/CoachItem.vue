@@ -17,10 +17,7 @@
   </li>
 </template>
 <script>
-import BaseBadge from '../../components/ui/BaseBadge.vue';
-import BaseButton from '../../components/ui/BaseButton.vue';
 export default {
-  components: { BaseButton, BaseBadge },
   props: ['firstName', 'lastName', 'hourlyRate', 'areas', 'id'],
   computed: {
     fullName() {

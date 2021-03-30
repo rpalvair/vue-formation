@@ -43,17 +43,11 @@
 <script>
 import { mapGetters } from 'vuex';
 import CoachItem from './CoachItem';
-import BaseCard from '../../components/ui/BaseCard';
-import BaseButton from '../../components/ui/BaseButton.vue';
 import CoachFilter from './CoachFilter.vue';
-import BaseSpinner from '../../components/ui/BaseSpinner';
 export default {
   components: {
     CoachItem,
-    BaseCard,
-    BaseButton,
     CoachFilter,
-    BaseSpinner,
   },
   data() {
     return {

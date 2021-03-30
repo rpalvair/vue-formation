@@ -80,9 +80,7 @@
   </form>
 </template>
 <script>
-import BaseButton from '../../components/ui/BaseButton.vue';
 export default {
-  components: { BaseButton },
   emits: ['coach-added'],
   data() {
     return {
