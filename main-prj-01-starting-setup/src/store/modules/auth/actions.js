@@ -51,13 +51,16 @@ export default {
                             localStorage.setItem('token', tokenResult.token)
                             localStorage.setItem('userId', user.uid)
                             const expirationTime = Date.parse(tokenResult.expirationTime)
-                            const expiresIn = expirationTime * 1000
-                            const expirationDate = new Date().getTime() + expiresIn
-                            localStorage.setItem('tokenExpiration', expirationDate)
+                            console.log("expirationTime", new Date(expirationTime).toString())
+                            const expiresIn = expirationTime - new Date().getTime()
+                            console.log("expiresIn", expiresIn)
+                            localStorage.setItem('tokenExpiration', expirationTime)
+
 
                             timer = setTimeout(() => {
+                                console.log("dispatch autologout")
                                 context.dispatch('autoLogout')
-                            }, expirationDate)
+                            }, expiresIn)
 
                             context.commit('setUser', {
                                 token: tokenResult.token,
@@ -83,6 +86,7 @@ export default {
         }
 
         timer = setTimeout(() => {
+            console.log("dispatch autologout")
             context.dispatch('autoLogout')
         }, expiresIn)
 
