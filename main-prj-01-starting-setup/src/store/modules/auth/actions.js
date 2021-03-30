@@ -57,7 +57,7 @@ export default {
 
                             timer = setTimeout(() => {
                                 context.dispatch('autoLogout')
-                            }, expiresIn)
+                            }, expirationDate)
 
                             context.commit('setUser', {
                                 token: tokenResult.token,
