@@ -14,9 +14,13 @@
           <base-button mode="outline" @click="loadCoaches(true)"
             >Refresh</base-button
           >
-          <base-button to="/register" link v-if="!isCoach && !isLoading"
+          <base-button
+            to="/register"
+            link
+            v-if="isLoggedIn && !isCoach && !isLoading"
             >Register as Coach</base-button
           >
+          <base-button v-if="!isLoggedIn" to="/auth?pageToRedirect=register" link mode="outline">Login</base-button>
         </div>
         <div v-if="isLoading">
           <base-spinner></base-spinner>
@@ -77,6 +81,9 @@ export default {
         }
         return true;
       });
+    },
+    isLoggedIn() {
+      return this.$store.getters.isAuthenticated;
     },
   },
   methods: {

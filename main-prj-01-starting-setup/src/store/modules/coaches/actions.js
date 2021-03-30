@@ -6,17 +6,19 @@ export default {
         console.log("payload", payload)
         const coaches = context.getters['coaches']
         console.log("length", coaches.length)
-        const id = "c" + (coaches.length + 1)
-        const result = await fetch(`${config.firebaseUrl}/coaches/${id}.json`, {
+        const userId = context.rootGetters.id
+        console.log("userId", userId)
+        const token = context.rootGetters.token
+        const result = await fetch(`${config.firebaseUrl}/coaches/${userId}.json?auth=${token}`, {
             method: 'PUT',
-            body: JSON.stringify({ ...payload, id })
+            body: JSON.stringify({ ...payload, id: userId })
         })
 
         const data = await result.json()
         console.log("data", data)
         if (result.ok) {
-            context.commit('saveCoach', { ...payload, id })
-            context.dispatch('setId', { id }, { root: true })
+            context.commit('saveCoach', { ...payload, id: userId })
+            context.dispatch('setId', { id: userId }, { root: true })
         } else {
             //
         }
