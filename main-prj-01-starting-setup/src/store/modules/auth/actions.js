@@ -3,6 +3,8 @@ import firebase from "firebase/app"
 import 'firebase/auth'
 
 
+let timer;
+
 export default {
     setId(context, payload) {
         console.log("setId", payload)
@@ -21,10 +23,13 @@ export default {
                 console.log("User is logged out")
                 context.commit('setUser', {
                     token: null,
-                    userId: null,
-                    tokenExpiration: null
+                    userId: null
                 })
             })
+        localStorage.removeItem('token')
+        localStorage.removeItem('userId')
+        localStorage.removeItem('tokenExpiration')
+        clearTimeout(timer)
     },
     auth(context, payload) {
         console.log("context", context)
@@ -45,10 +50,18 @@ export default {
                             console.log("uid", user.uid);
                             localStorage.setItem('token', tokenResult.token)
                             localStorage.setItem('userId', user.uid)
+                            const expirationTime = Date.parse(tokenResult.expirationTime)
+                            const expiresIn = expirationTime * 1000
+                            const expirationDate = new Date().getTime() + expiresIn
+                            localStorage.setItem('tokenExpiration', expirationDate)
+
+                            timer = setTimeout(() => {
+                                context.dispatch('autoLogout')
+                            }, expiresIn)
+
                             context.commit('setUser', {
                                 token: tokenResult.token,
-                                userId: user.uid,
-                                tokenExpiration: tokenResult.expirationTime
+                                userId: user.uid
                             })
                             resolve()
                         })
@@ -62,12 +75,26 @@ export default {
     autoLogin(context) {
         const token = localStorage.getItem('token')
         const userId = localStorage.getItem('userId')
+        const tokenExpiration = localStorage.getItem("tokenExpiration")
+        const expiresIn = tokenExpiration - new Date().getTime()
+
+        if (expiresIn < 0) {
+            return;
+        }
+
+        timer = setTimeout(() => {
+            context.dispatch('autoLogout')
+        }, expiresIn)
+
         if (token && userId) {
             context.commit('setUser', {
                 token: token,
-                userId: userId,
-                tokenExpiration: null
+                userId: userId
             })
         }
+    },
+    autoLogout(context) {
+        context.dispatch('logout')
+        context.commit('setAutoLogout')
     }
 }
